@@ -22,6 +22,9 @@ public class BaseDAO
             System.out.println("baseDAO中操作成功");
         }
         preparedStatement.close();
+//        因为事务是一定会关闭自动提交的，所哟如果 getAutoCommit开着，说明不是事务，帮他关了
+//        事务的话，见BankService中的代码，会在那边关闭的，不用在这关。
+//        而且事务需要这个语句，他只是其中一句话，不能事务处理到中间，就关闭把
         if (connection.getAutoCommit() == true) {
             JDBCUtilsPro.freeConnection();
         }
